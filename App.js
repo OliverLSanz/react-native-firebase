@@ -15,25 +15,28 @@ export default function App() {
   const [loading, setLoading] = useState(true)
   const [user, setUser] = useState(null)
 
+  const onAuthStateChanged = (user) => {
+    if (user) {
+      const usersRef = firebase.firestore().collection('users');
+      usersRef
+        .doc(user.uid)
+        .get()
+        .then((document) => {
+          const userData = document.data()
+          setLoading(false)
+          setUser(userData)
+        })
+        .catch((error) => {
+          setLoading(false)
+        });
+    } else {
+      setUser(null)
+      setLoading(false)
+    }
+  }
+
   useEffect(() => {
-    const usersRef = firebase.firestore().collection('users');
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        usersRef
-          .doc(user.uid)
-          .get()
-          .then((document) => {
-            const userData = document.data()
-            setLoading(false)
-            setUser(userData)
-          })
-          .catch((error) => {
-            setLoading(false)
-          });
-      } else {
-        setLoading(false)
-      }
-    });
+    firebase.auth().onAuthStateChanged(onAuthStateChanged);
   }, []);
 
   if (loading) {

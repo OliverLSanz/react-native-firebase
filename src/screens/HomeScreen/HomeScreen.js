@@ -3,13 +3,13 @@ import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'rea
 import styles from './styles';
 import { firebase } from '../../firebase/config'
 
-export default function HomeScreen(props) {
+export default function HomeScreen({ extraData, navigation }) {
 
     const [entityText, setEntityText] = useState('')
     const [entities, setEntities] = useState([])
 
     const entityRef = firebase.firestore().collection('entities')
-    const userID = props.extraData.id
+    const userID = extraData.id
 
     useEffect(() => {
         entityRef

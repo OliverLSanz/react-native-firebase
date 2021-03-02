@@ -50,6 +50,8 @@ This React Native Firebase starter is built with Firebase Web SDK, which makes i
 
 If you are unfamiliar with React and React Native I recommend you to read the [React Native documentation](https://reactnative.dev/docs/getting-started) before going further.
 
+Also, I recommend oppening the App.js file and looking at it at the same time as this explanation, or you will probably get lost.
+
 ## Project structure
 
 In the root of the project we have a few files:
